@@ -1,9 +1,9 @@
-name: Check if doc1.txt file changed
+name: Check if top.sls file changed
 
 on:
   pull_request:
     paths:
-      - 'doc1.txt'
+      - 'top.sls'
 
 jobs:
   check_file_changes:
@@ -13,12 +13,15 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Check if doc1.txt changed
+
+    - name: Check PR Title
+      env:
+        PR_TITLE: ${{ github.event.pull_request.title }}
       run: |
-        if git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }} | grep -q '^doc1\.txt$'; then
-          echo "The doc1.txt file has been changed."
-          exit 0
-        else
-          echo "The doc1.txt file has not been changed."
+        if ! [[ $PR_TITLE =~ CM-[0-9]+ ]]; then
+          echo "PR title does not match the required pattern 'CM-[0-9]+'"
+          echo "Please update the PR title to match the required pattern."
           exit 1
+        else
+          echo "PR title matches the required pattern."
         fi
