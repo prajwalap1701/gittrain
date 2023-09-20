@@ -7,21 +7,19 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
 
-    - id: changed-files
-      uses: ahmadnassri/action-changed-files@v1
+    - name: Check out code
+      uses: actions/checkout@v2
 
-    - if: contains(steps.changed-files.outputs.files, 'README.md')
+    - name: Get changed files
+      id: changed_files
       run: |
-        echo "README.md has changed"
+        git fetch origin pull/${{ github.event.pull_request.number }}/head:pr
+        git diff --name-only pr..HEAD > changed_files.txt
+      shell: bash
 
-    - id: changed-files-specific
-      uses: ahmadnassri/action-changed-files@v1
-      with:
-        pathspec: "doc1.txt"
-
-    - if: steps.changed-files-specific.outputs.changed == 'true'
-      run: |
-        echo "this step will only run if specific files have changed"
+    - name: Print changed files
+      run: cat changed_files.txt
+      shell: bash
 
     - name : Print Title of PR
       run: echo The Title of your PR is ${{ github.event.pull_request.title }}
