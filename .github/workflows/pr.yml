@@ -6,5 +6,22 @@ jobs:
   print_title_of_pr:
     runs-on: ubuntu-20.04
     steps:
+
+    - id: changed-files
+      uses: ahmadnassri/action-changed-files@v1
+
+    - if: contains(steps.changed-files.outputs.files, 'README.md')
+      run: |
+        echo "README.md has changed"
+
+    - id: changed-files-specific
+      uses: ahmadnassri/action-changed-files@v1
+      with:
+        pathspec: "doc1.txt"
+
+    - if: steps.changed-files-specific.outputs.changed == 'true'
+      run: |
+        echo "this step will only run if specific files have changed"
+
     - name : Print Title of PR
       run: echo The Title of your PR is ${{ github.event.pull_request.title }}
