@@ -1,2 +1,2 @@
 # gittrain
-Git and GitHub training purpose.
+Git and GitHub and github action training purpose.
