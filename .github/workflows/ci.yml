@@ -1,27 +1,30 @@
 name: Check if top.sls file changed
 
 on:
-  pull_request:
-    paths:
-      - 'top.sls'
+  workflow_dispatch:
 
 jobs:
-  check_file_changes:
+  run_shell_script:
     runs-on: ubuntu-latest
 
+    env:
+      ENV_VARIABLE_1: "Value1"
+      ENV_VARIABLE_2: "Value2"
+      # Add more environment variables as needed
+
     steps:
-    - name: Check out code
+    - name: Checkout code
       uses: actions/checkout@v2
 
-
-    - name: Check PR Title
-      env:
-        PR_TITLE: ${{ github.event.pull_request.title }}
+    - name: Run Shell Script
       run: |
-        if ! [[ $PR_TITLE =~ CM-[0-9]+ ]]; then
-          echo "PR title does not match the required pattern 'CM-[0-9]+'"
-          echo "Please update the PR title to match the required pattern."
-          exit 1
-        else
-          echo "PR title matches the required pattern."
-        fi
+        # Navigate to the parent directory where the script is located
+        cd ..
+
+        # Execute the shell script with environmental variables
+        ./script.sh
+
+        # You can access the defined environment variables here as well
+        echo "Environment Variable 1: $ENV_VARIABLE_1"
+        echo "Environment Variable 2: $ENV_VARIABLE_2"
+        # Add more commands as needed

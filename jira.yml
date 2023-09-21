@@ -1,0 +1,31 @@
+name: Check Jira Ticket State
+
+on:
+  workflow_run:
+    workflows: ["On Pull Request"]
+    types:
+      - completed
+
+jobs:
+  check_jira_ticket:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Jira Ticket State
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        JIRA_TICKET: "CM-23"
+      run: |
+        # Fetch the Jira ticket state using the Jira REST API
+        ticket_state=$(curl -s -u $GITHUB_ACTOR:$JIRA_API_TOKEN -X GET $JIRA_BASE_URL/rest/api/2/issue/$JIRA_TICKET | jq -r '.fields.status.name')
+
+        # Check the state and take appropriate action
+        if [[ $ticket_state == "Done" ]]; then
+          echo "The Jira ticket $JIRA_TICKET is in a 'Done' state."
+        elif [[ $ticket_state == "In Progress" ]]; then
+          echo "The Jira ticket $JIRA_TICKET is in 'In Progress' state."
+        else
+          echo "The Jira ticket $JIRA_TICKET is in an unknown state: $ticket_state"
+          exit 1
+        fi
