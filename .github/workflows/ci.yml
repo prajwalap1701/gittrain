@@ -18,9 +18,8 @@ jobs:
 
     - name: Run Shell Script
       run: |
-        ls
         # Navigate to the parent directory where the script is located
-        # cd ../bin/
+        cd ./.github/bin/
 
         # Execute the shell script with environmental variables
         # ./script.sh
