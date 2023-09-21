@@ -11,16 +11,20 @@ jobs:
       ENV_VARIABLE_1: "Value1"
       ENV_VARIABLE_2: "Value2"
       # Add more environment variables as needed
-
+    defaults:
+      run:
+        working-directory: ./.github/bin/
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github
+
+    - name: Make the script files executable
+      run: chmod +x script.sh
 
     - name: Run Shell Script
       run: |
-        # Navigate to the parent directory where the script is located
-        cd ./.github/bin/
-
         # Execute the shell script with environmental variables
         ./script.sh
 
