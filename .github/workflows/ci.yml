@@ -22,5 +22,5 @@ jobs:
         cd ./.github/bin/
 
         # Execute the shell script with environmental variables
-        # ./script.sh
+        ./script.sh
 
