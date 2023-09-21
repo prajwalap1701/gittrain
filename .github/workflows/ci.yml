@@ -19,12 +19,8 @@ jobs:
     - name: Run Shell Script
       run: |
         # Navigate to the parent directory where the script is located
-        cd ..
+        cd ../bin/
 
         # Execute the shell script with environmental variables
         ./script.sh
 
-        # You can access the defined environment variables here as well
-        echo "Environment Variable 1: $ENV_VARIABLE_1"
-        echo "Environment Variable 2: $ENV_VARIABLE_2"
-        # Add more commands as needed
