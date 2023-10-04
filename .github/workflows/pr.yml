@@ -24,7 +24,7 @@ jobs:
       run: |
         echo "PR title: $PR_TITLE"
         jira_ticket=$(echo "$PR_TITLE" | grep -oP 'CM-\d+')
-
+        echo "Jira ticket: $jira_ticket"
         if [[ -z $jira_ticket ]]; then
             echo "pull request does not have ticket number"
             exit 1
