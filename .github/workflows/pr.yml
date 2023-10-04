@@ -4,8 +4,7 @@ on:
   pull_request:
     types:
       - edited
-
-  push:
+      - opened
     paths:
       - 'doc1.txt'
 
