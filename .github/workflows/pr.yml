@@ -13,14 +13,20 @@ jobs:
   print-message:
     runs-on: ubuntu-latest
 
+    env: 
+      PR_TITLE: ${{ github.event.pull_request.title }}
+
     steps:
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Print Message
       run: |
-        if [[ -n "${{ github.event_name }}" && "${{ github.event_name }}" == "pull_request" ]]; then
-          echo "PR title edited! New title: ${{ github.event.pull_request.title }}"
-        elif [[ -n "${{ github.event_name }}" && "${{ github.event_name }}" == "push" ]]; then
-          echo "Changes made to fl.txt file!"
-        fi
+        echo "PR title: $PR_TITLE"
+        jira_ticket=$(echo "$PR_TITLE" | grep -oP 'CM-\d+')
+
+        if [[ -z $jira_ticket ]]; then
+            echo "pull request does not have ticket number"
+            exit 1
+        else
+            echo "pull request is refering to $jira_ticket ticket" 
