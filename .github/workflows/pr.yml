@@ -30,3 +30,4 @@ jobs:
             exit 1
         else
             echo "pull request is refering to $jira_ticket ticket" 
+        fi
