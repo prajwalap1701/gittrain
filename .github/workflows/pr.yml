@@ -1,10 +1,26 @@
-name: PR
+name: Print Message on PR Title Edit or File Change
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+    types:
+      - edited
+
+  push:
+    paths:
+      - 'doc1.txt'
 
 jobs:
-  print_title_of_pr:
-    runs-on: ubuntu-20.04
+  print-message:
+    runs-on: ubuntu-latest
+
     steps:
-    - name : Print Title of PR
-      run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Print Message
+      run: |
+        if [[ -n "${{ github.event_name }}" && "${{ github.event_name }}" == "pull_request" ]]; then
+          echo "PR title edited! New title: ${{ github.event.pull_request.title }}"
+        elif [[ -n "${{ github.event_name }}" && "${{ github.event_name }}" == "push" ]]; then
+          echo "Changes made to fl.txt file!"
+        fi
