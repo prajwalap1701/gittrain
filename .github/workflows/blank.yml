@@ -16,9 +16,9 @@ jobs:
         with:
           channel-id: 'C06AR9Q3DQD'
           slack-message: |
-            "GitHub build result"
-            "sdafsafsaf"
-            "asdfgsdagfa"
+            GitHub build result
+            sdafsafsaf
+            asdfgsdagfa
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       
