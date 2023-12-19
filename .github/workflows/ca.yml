@@ -13,7 +13,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.24.0
         with:
           channel-id: 'C06AR9Q3DQD'
-          slack-message: "PR is merged"
+          slack-message: ":tada: Pull request #${{ github.event.pull_request.number }} just merged!  Title: ${{ github.event.pull_request.title }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       
