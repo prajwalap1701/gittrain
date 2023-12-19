@@ -14,13 +14,11 @@ jobs:
         with:
           channel-id: 'C06AR9Q3DQD'
           slack-message: |
-            pull request got merged :white_check_mark:
-            **Pull Request #${{ github.event.pull_request.number }}**
-            **Title:** ${{ github.event.pull_request.title }}
-            **URL:** ${{ github.event.pull_request.html_url }}
-            **Head Branch:** ${{ github.event.pull_request.head.ref }}
-            **Base Branch:** ${{ github.event.pull_request.base.ref }}
-            **Author:** ${{ github.event.pull_request.user.login }}
+            *Pull request #${{ github.event.pull_request.number }} got merged into the master* :white_check_mark:
+            *Title:* ${{ github.event.pull_request.title }}
+            *URL:* ${{ github.event.pull_request.html_url }}
+            *Head Branch:* ${{ github.event.pull_request.head.ref }}
+            *Author:* ${{ github.event.pull_request.user.login }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       
