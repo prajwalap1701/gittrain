@@ -14,7 +14,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
-          channel-id: 'C06AR9Q3DQD'
+          channel-id: 'C06B0NNMRCL'
           slack-message: |
             GitHub build result
             sdafsafsaf
