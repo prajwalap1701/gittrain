@@ -4,7 +4,7 @@ on:
       - closed
 
 env:
-  SLACK_BOT_TOKEN: C06AR9Q3DQD
+  SLACK_BOT_TOKEN: C06B0NNMRCL
 
 jobs:
   if_merged:
