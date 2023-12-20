@@ -4,7 +4,7 @@ on:
   - workflow_dispatch
 
 env:
-  SLACK_BOT_TOKEN: 'C06B0NNMRCL'
+  SLACK_CHANNEL_ID: C06B0NNMRCL
 
 jobs:
   publish:
@@ -17,7 +17,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
-          channel-id: ${{ env.SLACK_BOT_TOKEN }}
+          channel-id: ${{ env.SLACK_CHANNEL_ID }}
           slack-message: |
             GitHub build result
             sdafsafsaf
